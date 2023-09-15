@@ -1,10 +1,19 @@
+const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const colors = require("colors");
-const connectDb = require("./config/connectDB");
+// const connectDb = require("./config/connectDB");
 
+const connectDb = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log(`Server running on ${mongoose.connection.host}`.bgCyan.white);
+  } catch (error) {
+    console.log(`${error}`.bgRed);
+  }
+};
 dotenv.config();
 
 connectDb();
